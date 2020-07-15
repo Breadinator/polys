@@ -9,13 +9,13 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-polys = "0.1.3"
+polys = "0.1.5"
 ```
 
 ## Usage
 The following is the `main.rs` file of my test program. It shows the area and perimeter of a rectangle, a triangle, and a circle.
 ```rust
-use polys::*;
+use polys::{Polygon, Rect, Tri, Circle, Reg};
 
 fn main() {
 	{
