@@ -1,2 +1,50 @@
 # polys
+![Crates.io](https://img.shields.io/crates/v/polys)
 polys is a Rust crate implementing basic polygons as structs, all implementing a trait which gives the basic functions associated with polygons.
+
+## Usage
+Add this to your `Cargo.toml`:
+
+```toml
+[dependencies]
+polys = "0.1.1"
+```
+
+## Usage
+The following is the `main.rs` file of my test program. It shows the area and perimeter of a rectangle, a triangle, and a circle.
+```rust
+use polys::*;
+
+fn main() {
+	{
+    	let poly = Rect::new(12.0, 6.0);
+    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
+	}
+
+	{
+    	let poly = Tri::new(24.0, 30.0, 18.0);
+    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
+	}
+
+	{
+    	let poly = Circle::new(5.0);
+    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
+	}
+}
+
+```
+
+The output of this program returns the following:
+```
+Rect { width: 12.0, height: 6.0 }
+    area: 72, peri: 36
+
+Tri { side1: 24.0, side2: 30.0, side3: 18.0 }
+    area: 216, peri: 72
+
+Circle { radius: 5.0 }
+    area: 78.53981633974483, peri: 31.41592653589793
+```
+
+## License
+polys is distributed under the MIT license. See [LICENSE](LICENSE)
