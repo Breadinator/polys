@@ -31,6 +31,8 @@ impl Polygon for Rect {
 	/// Gets the area of the Rect according to its width and height.
 	/// # Examples
 	/// ```
+	/// use crate::polys::Polygon;
+	///
 	/// let rect = polys::Rect::new(10.0, 5.0);
 	/// let area = rect.area();
 	/// assert_eq!(area, 50.0);
@@ -39,14 +41,29 @@ impl Polygon for Rect {
 		(&self.width * &self.height) as f64
 	}
 
-	/// Gets the perimeter of the Rect from its width and height,
+	/// Gets the perimeter of the Rect from its width and height.
 	/// # Examples
 	/// ```
+	/// use crate::polys::Polygon;
+	///
 	/// let rect = polys::Rect::new(10.0, 5.0);
 	/// let peri = rect.peri();
 	/// assert_eq!(peri, 30f64);
 	/// ```
 	fn peri(&self) -> f64 {
 		2f64 * &self.width + 2f64 * &self.height
+	}
+
+	/// Returns interior angles (all 90) in degrees.
+	/// # Examples
+	/// ```
+	/// use crate::polys::Polygon;
+	///
+	/// let rect = polys::Rect::new(10.0, 5.0);
+	/// let angles = rect.angles();
+	/// assert_eq!(angles[0], 90f64);
+	/// ```
+	fn angles(&self) -> Vec<f64> {
+		vec![90f64; 4]
 	}
 }

@@ -9,8 +9,9 @@ pub use crate::reg::Reg;
 
 /// Polygon trait for structs representing 2-dimensional shapes.
 pub trait Polygon {
-	fn area(&self) -> f64;
-	fn peri(&self) -> f64;
+	fn area(&self)   -> f64;
+	fn peri(&self)   -> f64;
+	fn angles(&self) -> Vec<f64>;
 }
 
 /// Enum of all the polygon types
