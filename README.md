@@ -1,5 +1,6 @@
 # polys
 ![Crates.io](https://img.shields.io/crates/v/polys)
+
 polys is a Rust crate implementing basic polygons as structs, all implementing a trait which gives the basic functions associated with polygons.
 
 ## Usage
@@ -7,7 +8,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-polys = "0.1.2"
+polys = "0.1.3"
 ```
 
 ## Usage
@@ -30,8 +31,12 @@ fn main() {
     	let poly = Circle::new(5.0);
     	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
 	}
-}
 
+	{
+    	let poly = Reg::new(3.0, 5.0);
+    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
+	}
+}
 ```
 
 The output of this program returns the following:
@@ -44,7 +49,10 @@ Tri { side1: 24.0, side2: 30.0, side3: 18.0 }
 
 Circle { radius: 5.0 }
     area: 78.53981633974483, peri: 31.41592653589793
+
+Reg { length: 3.0, sides: 5.0 }
+    area: 15.484296605300704, peri: 15
 ```
 
 ## License
-polys is distributed under the MIT license. See [LICENSE](LICENSE)
+polys is distributed under the MIT license. See [LICENSE](LICENSE).
