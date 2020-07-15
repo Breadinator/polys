@@ -2,8 +2,16 @@ use std::f64::consts::PI;
 
 /// Polygon trait for structs representing 2-dimensional shapes.
 pub trait Polygon {
-	fn area(&self)    -> f64;
+	fn area(&self) -> f64;
 	fn peri(&self) -> f64;
+}
+
+/// Enum of all the polygon types
+pub enum Poly {
+	Rect(Rect),
+	Circle(Circle),
+	Tri(Tri),
+	Reg(Reg),
 }
 
 /// Struct that represents a rectangle.
@@ -147,13 +155,76 @@ pub struct Reg {
 }
 
 impl Reg {
-	/// Returns a new Poly based on a given length *l* and sides *s*
+	/// Returns a new Reg based on a given length *l* and sides *s*
 	/// # Examples
 	/// ```
 	/// let reg = polys::Reg::new(3, 5);
 	/// ```
 	pub fn new(l: f64, s: f64) -> Reg {
 		Reg { length: l, sides: s }
+	}
+
+	/// Returns a new 3-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::tri(3);
+	/// ```
+	pub fn tri(l: f64) -> Reg {
+		Reg { length: l, sides: 3f64 }
+	}
+
+	/// Returns a new 4-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::quad(3);
+	/// ```
+	pub fn quad(l: f64) -> Reg {
+		Reg { length: l, sides: 4f64 }
+	}
+
+	/// Returns a new 5-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::pent(3);
+	/// ```
+	pub fn pent(l: f64) -> Reg {
+		Reg { length: l, sides: 5f64 }
+	}
+
+	/// Returns a new 6-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::hex(3);
+	/// ```
+	pub fn hex(l: f64) -> Reg {
+		Reg { length: l, sides: 6f64 }
+	}
+
+	/// Returns a new 7-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::sept(3);
+	/// ```
+	pub fn sept(l: f64) -> Reg {
+		Reg { length: l, sides: 7f64 }
+	}
+
+	/// Returns a new 8-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::oct(3);
+	/// ```
+	pub fn oct(l: f64) -> Reg {
+		Reg { length: l, sides: 8f64 }
+	}
+
+	/// Returns a new 9-sided Reg with sides length *l*.
+	/// # Examples
+	/// ```
+	/// let reg = polys::Reg::non(3);
+	/// ```
+	pub fn non(l: f64) -> Reg {
+		Reg { length: l, sides: 9f64 }
 	}
 }
 

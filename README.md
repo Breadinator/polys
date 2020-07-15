@@ -1,5 +1,6 @@
 # polys
-![Crates.io](https://img.shields.io/crates/v/polys)
+[![Crates.io](https://img.shields.io/crates/v/polys)](https://crates.io/crates/polys)
+[![Docs](https://docs.rs/polys/badge.svg)](https://docs.rs/polys)
 
 polys is a Rust crate implementing basic polygons as structs, all implementing a trait which gives the basic functions associated with polygons.
 
