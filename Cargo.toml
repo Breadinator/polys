@@ -6,6 +6,7 @@ edition = "2018"
 description = "A package for polygon geometry"
 readme = "README.md"
 repository = "https://github.com/Breadinator/polys"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
