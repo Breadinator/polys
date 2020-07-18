@@ -70,20 +70,22 @@ impl Polygon for Tri {
 	/// ```
 	fn angles(&self) -> Option<Vec<f64>> {
 		let mut angles = Vec::new();
-		let [a,  b,  c ] = [&self.side1, &self.side2, &self.side3];
-		let [a2, b2, c2] = [a*a,         b*b,         c*c        ];
+		let sides = [&self.side1, &self.side2, &self.side3];
 
-		let acos = (b2+c2-a2)/(2.0*b*c);
-		let bcos = (a2+c2-b2)/(2.0*a*c);
-		let ccos = (a2+b2-c2)/(2.0*a*b);
+		let cosine_rule = |i: usize| -> f64 {
+			let [a, b, c] = [
+				sides[i],
+				sides[(i+1)%3],
+				sides[(i+2)%3]
+			];
+			(((b*b)+(c*c)-(a*a))/(2.0*b*c)).acos()
+		};
 
-		let a = acos.acos();
-		let b = bcos.acos();
-		let c = ccos.acos();
-
-		angles.push(a);
-		angles.push(b);
-		angles.push(c);
+		for i in 0..3 {
+			let angle = cosine_rule(i as usize);
+			if !angle.is_normal() { return None; }
+			angles.push(angle);
+		}
 
 		Some(angles)
 	}
