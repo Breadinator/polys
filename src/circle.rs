@@ -46,7 +46,7 @@ impl Polygon for Circle {
 		Some(2.0 * PI * &self.radius)
 	}
 
-	/// Returns an empty vector.
+	/// Returns None.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
