@@ -1,4 +1,7 @@
+use std::f64::consts::PI;
+
 use crate::Polygon;
+use crate::tri::Tri;
 
 /// Struct that represents a rectangle.
 #[derive(Debug)]
@@ -32,6 +35,24 @@ impl Rect {
 		} else {
 			Some(Rect { width: w, height: w })
 		}
+	}
+
+	/// Returns the triangle created by cutting the Rect through two opposite corners.
+	/// # Examples
+	/// ```
+	/// use crate::polys::Polygon;
+	///
+	/// let rect = polys::Rect::new(3.0, 4.0)
+	/// 	.expect("Cound not make Rect")
+	/// 	.split()
+	/// 	.expect("Could not convert to Tri");
+	/// let tri = polys::Tri::new(3.0, 4.0, 5.0)
+	/// 	.expect("Could not make Tri");
+	/// 
+	/// assert_eq!(rect.side3, tri.side3);
+	/// ```
+	pub fn split(&self) -> Option<Tri> {
+		Tri::sas(self.width, self.height, PI/2.0)
 	}
 }
 

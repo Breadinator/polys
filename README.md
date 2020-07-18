@@ -9,7 +9,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-polys = "0.4.0"
+polys = "0.4.1"
 ```
 
 ## Usage
