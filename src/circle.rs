@@ -14,7 +14,13 @@ impl Circle {
 	/// ```
 	/// let circle = polys::Circle::new(5.0);
 	/// ```
-	pub fn new(r: f64) -> Circle { Circle {radius: r} }
+	pub fn new(r: f64) -> Option<Circle> {
+		if r == 0.0 {
+			None
+		} else {
+			Some(Circle {radius: r})
+		}
+	}
 }
 
 impl Polygon for Circle {
@@ -24,9 +30,10 @@ impl Polygon for Circle {
 	/// use crate::polys::Polygon;
 	/// use std::f64::consts::PI;
 	///
-	/// let circle = polys::Circle::new(5.0);
-	/// let area = circle.area();
-	/// assert_eq!(area.expect("Is none"), PI * 25.0);
+	/// let circle = polys::Circle::new(5.0)
+	/// 	.expect("Could not make Circle");
+	/// let area = circle.area().expect("Is none");
+	/// assert_eq!(area, PI * 25.0);
 	/// ```
 	fn area(&self) -> Option<f64> {
 		Some(PI * &self.radius * &self.radius)
@@ -38,9 +45,10 @@ impl Polygon for Circle {
 	/// use crate::polys::Polygon;
 	/// use core::f64::consts::PI;
 	///
-	/// let circle = polys::Circle::new(5.0);
-	/// let peri = circle.peri();
-	/// assert_eq!(peri.expect("Is none"), 10.0*PI);
+	/// let circle = polys::Circle::new(5.0)
+	/// 	.expect("Could not make Circle");
+	/// let peri = circle.peri().expect("Is none");
+	/// assert_eq!(peri, 10.0*PI);
 	/// ```
 	fn peri(&self) -> Option<f64> {
 		Some(2.0 * PI * &self.radius)
@@ -50,7 +58,8 @@ impl Polygon for Circle {
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let circle = polys::Circle::new(5.0);
+	/// let circle = polys::Circle::new(5.0)
+	/// 	.expect("Could not make Circle");
 	/// let angles = circle.angles();
 	/// assert!(angles.is_none());
 	/// ```

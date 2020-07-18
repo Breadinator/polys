@@ -13,8 +13,12 @@ impl Rect {
 	/// ```
 	/// let rect = polys::Rect::new(12.0, 6.0);
 	/// ```
-	pub fn new(w: f64, h: f64) -> Rect {
-		Rect { width: w, height: h }
+	pub fn new(w: f64, h: f64) -> Option<Rect> {
+		if w==0.0 || h==0.0 {
+			None
+		} else {
+			Some(Rect { width: w, height: h })
+		}
 	}
 
 	/// Returns a new Rect where both width and height are set to given value *w*.
@@ -22,8 +26,12 @@ impl Rect {
 	/// ```
 	/// let square = polys::Rect::square(12.0);
 	/// ```
-	pub fn square(w: f64) -> Rect {
-		Rect { width: w, height: w }
+	pub fn square(w: f64) -> Option<Rect> {
+		if w == 0.0 {
+			None
+		} else {
+			Some(Rect { width: w, height: w })
+		}
 	}
 }
 
@@ -33,9 +41,10 @@ impl Polygon for Rect {
 	/// ```
 	/// use crate::polys::Polygon;
 	///
-	/// let rect = polys::Rect::new(10.0, 5.0);
-	/// let area = rect.area();
-	/// assert_eq!(area.expect("Is none"), 50.0);
+	/// let rect = polys::Rect::new(10.0, 5.0)
+	/// 	.expect("Could not make Rect");
+	/// let area = rect.area().expect("Is none");
+	/// assert_eq!(area, 50.0);
 	/// ```
 	fn area(&self) -> Option<f64> {
 		Some(&self.width * &self.height)
@@ -46,9 +55,10 @@ impl Polygon for Rect {
 	/// ```
 	/// use crate::polys::Polygon;
 	///
-	/// let rect = polys::Rect::new(10.0, 5.0);
-	/// let peri = rect.peri();
-	/// assert_eq!(peri.expect("Is none"), 30.0);
+	/// let rect = polys::Rect::new(10.0, 5.0)
+	/// 	.expect("Could not make Rect");
+	/// let peri = rect.peri().expect("Is none");
+	/// assert_eq!(peri, 30.0);
 	/// ```
 	fn peri(&self) -> Option<f64> {
 		Some(2.0 * &self.width + 2.0 * &self.height)
@@ -59,9 +69,10 @@ impl Polygon for Rect {
 	/// ```
 	/// use crate::polys::Polygon;
 	///
-	/// let rect = polys::Rect::new(10.0, 5.0);
-	/// let angles = rect.angles();
-	/// assert_eq!((angles.expect("Is none"))[0], 90.0);
+	/// let rect = polys::Rect::new(10.0, 5.0)
+	/// 	.expect("Could not make Rect");
+	/// let angles = rect.angles().expect("Is none");
+	/// assert_eq!((angles)[0], 90.0);
 	/// ```
 	fn angles(&self) -> Option<Vec<f64>> {
 		Some(vec![90.0; 4])
