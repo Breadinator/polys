@@ -9,7 +9,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-polys = "0.2.0"
+polys = "0.3.0"
 ```
 
 ## Usage
@@ -18,25 +18,25 @@ The following is the `main.rs` file of my test program. It shows the area and pe
 use polys::{Polygon, Rect, Tri, Circle, Reg};
 
 fn main() {
-	{
-    	let poly = Rect::new(12.0, 6.0);
-    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
-	}
+    {
+        let poly = Rect::new(12.0, 6.0);
+        println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area().expect("Is none"), &poly.peri().expect("Is none"));
+    }
 
-	{
-    	let poly = Tri::new(24.0, 30.0, 18.0);
-    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
-	}
+    {
+        let poly = Tri::new(24.0, 30.0, 18.0);
+        println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area().expect("Is none"), &poly.peri().expect("Is none"));
+    }
 
-	{
-    	let poly = Circle::new(5.0);
-    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
-	}
+    {
+        let poly = Circle::new(5.0);
+        println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area().expect("Is none"), &poly.peri().expect("Is none"));
+    }
 
-	{
-    	let poly = Reg::new(3.0, 5.0);
-    	println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area(), &poly.peri());
-	}
+    {
+        let poly = Reg::new(3.0, 5.0);
+        println!("{:?}\n    area: {}, peri: {}\n", &poly, &poly.area().expect("Is none"), &poly.peri().expect("Is none"));
+    }
 }
 ```
 

@@ -22,12 +22,14 @@ impl Polygon for Circle {
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
+	/// use std::f64::consts::PI;
+	///
 	/// let circle = polys::Circle::new(5.0);
 	/// let area = circle.area();
-	/// assert_eq!(area, (std::f64::consts::PI * 25f64) as f64);
+	/// assert_eq!(area.expect("Is none"), PI * 25.0);
 	/// ```
-	fn area(&self) -> f64 {
-		(PI * &self.radius * &self.radius) as f64
+	fn area(&self) -> Option<f64> {
+		Some(PI * &self.radius * &self.radius)
 	}
 
 	/// Gets the circumferance of the Circle from its radius.
@@ -38,10 +40,10 @@ impl Polygon for Circle {
 	///
 	/// let circle = polys::Circle::new(5.0);
 	/// let peri = circle.peri();
-	/// assert_eq!(peri, 10f64*PI);
+	/// assert_eq!(peri.expect("Is none"), 10.0*PI);
 	/// ```
-	fn peri(&self) -> f64 {
-		(2f64 * PI * &self.radius) as f64
+	fn peri(&self) -> Option<f64> {
+		Some(2.0 * PI * &self.radius)
 	}
 
 	/// Returns an empty vector.
@@ -50,7 +52,7 @@ impl Polygon for Circle {
 	/// use crate::polys::Polygon;
 	/// let circle = polys::Circle::new(5.0);
 	/// let angles = circle.angles();
-	/// assert!(angles.is_empty());
+	/// assert!(angles.is_none());
 	/// ```
-	fn angles(&self) -> Vec<f64> { vec![] }
+	fn angles(&self) -> Option<Vec<f64>> { None }
 }

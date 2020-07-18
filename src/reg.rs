@@ -14,7 +14,7 @@ impl Reg {
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::new(3f64, 5f64);
+	/// let reg = polys::Reg::new(3.0, 5.0);
 	/// ```
 	pub fn new(l: f64, s: f64) -> Reg {
 		Reg { length: l, sides: s }
@@ -24,70 +24,70 @@ impl Reg {
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::tri(3f64);
+	/// let reg = polys::Reg::tri(3.0);
 	/// ```
 	pub fn tri(l: f64) -> Reg {
-		Reg { length: l, sides: 3f64 }
+		Reg { length: l, sides: 3.0 }
 	}
 
 	/// Returns a new 4-sided Reg with sides length *l*.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::quad(3f64);
+	/// let reg = polys::Reg::quad(3.0);
 	/// ```
 	pub fn quad(l: f64) -> Reg {
-		Reg { length: l, sides: 4f64 }
+		Reg { length: l, sides: 4.0 }
 	}
 
 	/// Returns a new 5-sided Reg with sides length *l*.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::pent(3f64);
+	/// let reg = polys::Reg::pent(3.0);
 	/// ```
 	pub fn pent(l: f64) -> Reg {
-		Reg { length: l, sides: 5f64 }
+		Reg { length: l, sides: 5.0 }
 	}
 
 	/// Returns a new 6-sided Reg with sides length *l*.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::hex(3f64);
+	/// let reg = polys::Reg::hex(3.0);
 	/// ```
 	pub fn hex(l: f64) -> Reg {
-		Reg { length: l, sides: 6f64 }
+		Reg { length: l, sides: 6.0 }
 	}
 
 	/// Returns a new 7-sided Reg with sides length *l*.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::sept(3f64);
+	/// let reg = polys::Reg::sept(3.0);
 	/// ```
 	pub fn sept(l: f64) -> Reg {
-		Reg { length: l, sides: 7f64 }
+		Reg { length: l, sides: 7.0 }
 	}
 
 	/// Returns a new 8-sided Reg with sides length *l*.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::oct(3f64);
+	/// let reg = polys::Reg::oct(3.0);
 	/// ```
 	pub fn oct(l: f64) -> Reg {
-		Reg { length: l, sides: 8f64 }
+		Reg { length: l, sides: 8.0 }
 	}
 
 	/// Returns a new 9-sided Reg with sides length *l*.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg = polys::Reg::non(3f64);
+	/// let reg = polys::Reg::non(3.0);
 	/// ```
 	pub fn non(l: f64) -> Reg {
-		Reg { length: l, sides: 9f64 }
+		Reg { length: l, sides: 9.0 }
 	}
 }
 
@@ -96,23 +96,29 @@ impl Polygon for Reg {
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg  = polys::Reg::new(3f64, 5f64);
-	/// let area = reg.area();
+	/// let reg  = polys::Reg::new(3.0, 5.0);
+	/// let area = reg.area().expect("Is none");
 	/// assert_eq!(area, 15.484296605300704);
 	/// ```
 	///
 	/// This can also be seen by comparing the Rect square and Reg implementations.
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let square = polys::Rect::square(7f64).area();
-	/// let reg    = polys::Reg::new(7f64, 4f64) .area();
+	/// let square = polys::Rect::square(7.0).area().expect("Is none");
+	/// let reg = polys::Reg::new(7.0, 4.0).area().expect("Is none");
 	/// assert_eq!(square as i32, reg as i32); // casted to i32 because floats suck :)
 	/// ```
-	fn area(&self) -> f64 { 
-		let peri  = &self.peri();
-		let angle = (180f64/&self.sides)*(PI/180f64); //used because func uses radians
-		let apoth = &self.length/(2f64*angle.tan());
-		(peri * apoth)/2f64
+	fn area(&self) -> Option<f64> { 
+		let p  = &self.peri();
+
+		match p {
+			Some(perimeter) => {
+				let angle = PI/&self.sides;
+				let apoth = &self.length/(2.0*angle.tan());
+				Some(perimeter * apoth * 0.5)
+			},
+			None => None,
+		}
 	}
 
 	/// Gets the perimeter of the Reg.
@@ -120,30 +126,31 @@ impl Polygon for Reg {
 	/// This works on a regular polygon where it has 5 of more sides.
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let reg  = polys::Reg::new(3f64, 5f64);
-	/// let peri = reg.peri();
-	/// assert_eq!(peri, 15f64);
+	/// let reg  = polys::Reg::new(3.0, 5.0);
+	/// let peri = reg.peri().expect("Is none");
+	/// assert_eq!(peri, 15.0);
 	/// ```
 	///
 	/// This can also be seen by comparing the Rect square and Reg implementations.
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let square = polys::Rect::square(7f64).peri();
-	/// let reg    = polys::Reg::new(7f64, 4f64) .peri();
+	/// let square = polys::Rect::square(7.0) .peri();
+	/// let reg    = polys::Reg::new(7.0, 4.0).peri();
 	/// ```
-	fn peri(&self) -> f64 { 
-		&self.length * &self.sides
+	fn peri(&self) -> Option<f64> { 
+		Some(&self.length * &self.sides)
 	}
 
 	/// Returns the size of the interior angles in degrees.
 	/// # Examples
 	/// ```
 	/// use crate::polys::Polygon;
-	/// let poly = polys::Reg::pent(12f64);
-	/// 
+	/// let poly = polys::Reg::pent(12.0);
+	/// let angles = poly.angles().expect("Is none");
+	/// assert_eq!(angles[0], 108.0);
 	/// ```
-	fn angles(&self) -> Vec<f64> {
-		let total = 180f64*(&self.sides-2f64);
-		vec![total/&self.sides; *&self.sides as usize]
+	fn angles(&self) -> Option<Vec<f64>> {
+		let total = 180.0*(&self.sides-2.0);
+		Some(vec![total/&self.sides; *&self.sides as usize])
 	}
 }
